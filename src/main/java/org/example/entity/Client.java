@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
 @Getter
@@ -24,6 +27,8 @@ public class Client {
     @Size (min = 3, max = 200)
     @NotNull
     private String name;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> tickets = new HashSet<>();
     public Long getId() {
         return id;
     }

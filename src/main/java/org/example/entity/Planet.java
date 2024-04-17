@@ -1,15 +1,15 @@
 package org.example.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Getter
@@ -29,6 +29,11 @@ public class Planet {
     @Size(min=1, max=500)
     private String name;
 
+    @OneToMany(mappedBy="fromPlanet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> fromPlanet = new HashSet<>();
+
+    @OneToMany(mappedBy="toPlanet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> toPlanet = new HashSet<>();
     public String getId() {
         return id;
     }
