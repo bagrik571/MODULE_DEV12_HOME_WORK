@@ -35,24 +35,19 @@ public boolean createTicket(Ticket ticket){
     try(Session session = HibernateUtils.getInstance().getSessionFactory().openSession()){
         Transaction transaction = session.beginTransaction();
         try {
-            // Проверяем существование клиента
+
             Client client = session.get(Client.class, ticket.getClient().getId());
             if (client == null) {
-                // Клиент не существует, билет не может быть создан
                 throw new IllegalArgumentException("Client does not exist");
             }
 
-            // Проверяем существование планеты отправления
             Planet fromPlanet = session.get(Planet.class, ticket.getFromPlanet().getId());
             if (fromPlanet == null) {
-                // Планета отправления не существует, билет не может быть создан
                 throw new IllegalArgumentException("From Planet does not exist");
             }
 
-            // Проверяем существование планеты прибытия
             Planet toPlanet = session.get(Planet.class, ticket.getToPlanet().getId());
             if (toPlanet == null) {
-                // Планета прибытия не существует, билет не может быть создан
                 throw new IllegalArgumentException("To Planet does not exist");
             }
 
