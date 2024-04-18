@@ -1,6 +1,8 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -16,19 +18,23 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
+    @NotNull
+    @Valid
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "client_id", nullable=false)
     private Client client;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable=false)
     private Timestamp date;
-
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "from_planet_id")
+    @NotNull
+    @Valid
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    @JoinColumn(name = "from_planet_id", nullable=false)
     private Planet fromPlanet;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "to_planet_id")
+    @NotNull
+    @Valid
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "to_planet_id", nullable=false)
     private Planet toPlanet;
 
     public Long getId() {
@@ -72,6 +78,7 @@ public class Ticket {
     }
 
     public Ticket(Client client, Planet fromPlanet, Planet toPlanet) {
+        this.id = id;
         this.client = client;
         this.date = date;
         this.fromPlanet = fromPlanet;

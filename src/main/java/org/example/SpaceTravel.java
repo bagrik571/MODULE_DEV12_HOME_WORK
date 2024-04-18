@@ -100,6 +100,10 @@ public class SpaceTravel {
         tcs.createTicket(ticket);
         System.out.println("Create new ticket: " + ticket);
 
+        // get ticket by ticket id
+        Ticket retrievedTicket = tcs.getTicketById(11L);
+        System.out.printf("Result ticket by ticket id %d: %s\n", retrievedTicket.getId(), retrievedTicket);
+
         // update ticket info
         Planet updateFromPlanet = pcs.getPlanetById("VEN2");
         Planet updateToPlanet = pcs.getPlanetById("JUP5");
@@ -109,17 +113,13 @@ public class SpaceTravel {
         tcs.updateTicket(ticket);
         System.out.printf("Update ticket for client %s - %s\n", client, ticket);
 
-        // get ticket by ticket id
-        Ticket retrievedTicket = tcs.getTicketById(11L);
-        System.out.printf("Result ticket by ticket id %d: %s", retrievedTicket.getId(), retrievedTicket);
-
         // get ticket by client id
         System.out.println("Result ticket by client id 3: " + tcs.getByClientId(3L));
 
 
         //delete ticket
-//tcs.deleteTicketById(4L);
-//        System.out.println("Delete ticket by id 4");
+        tcs.deleteTicketById(4L);
+        System.out.println("Delete ticket by id 4");
 
     }
 
